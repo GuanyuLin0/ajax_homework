@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "CheckAccount";
+}
+
+<h1>Homework_2</h1>
+<hr />
+
+<div class="mt-3">姓名：</div>
+<input type="text" id="name" />
+<div id="mbname" style="background-color:lightblue;"></div>
+<div class="mt-3">電子郵件：</div>
+<input type="text" id="email" />
+<div class="mt-3">年紀：</div>
+<input type="text" id="age" />
+<br />
+<button id="btn" class="btn btn-sm btn-primary mt-3">送出</button>
+<div id="mblist" style="background-color:lightgreen;"></div>
+
+
+@section Scripts {
+    <script>
+        let memberName = document.querySelector('#name');
+        let memberEmail = document.querySelector('#email');
+        let memberAge = document.querySelector('#age');
+        let NameCheck = document.querySelector('#mbname');
+        const btn = document.querySelector('#btn');
+        let mblist = document.querySelector('#mblist');
+
+        let mbName = false;
+
+        memberName.addEventListener('change',async (e) => {
+            memberName = document.querySelector('#name');
+            NameCheck = document.querySelector('#mbname');
+            mbName = false;
+
+            const responseName = await fetch('@Url.Content("~/api/checkaccount")');
+            const names = await responseName.json();
+            names.forEach((x) => {
+                if (e.target.value.toLowerCase() == x.toLowerCase()) mbName = true;
+            })
+            if (mbName) NameCheck.innerHTML = "帳號已存在";
+            else NameCheck.innerHTML = "帳號可以使用";
+        })
+
+        btn.addEventListener('click', async () => {
+            memberName = document.querySelector('#name');
+            memberEmail = document.querySelector('#email');
+            memberAge = document.querySelector('#age');
+
+            console.log(memberName);
+            mblist.innerHTML = `${memberName.target.value},${memberEmail.target.value},${memberAge.target.value}`;
+        })
+    </script>
+}

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+<select id="select1"></select>
+<select id="select2"></select>
+<select id="select3"></select>
+
+@section scripts {
+    <script>
+        const selCity = document.querySelector('#select1');
+        const selsite = document.querySelector('#select2');
+        const selroad = document.querySelector('#select3');
+        (async() => {
+            const response_city = await fetch('@Url.Content("~/api/cities")');
+            const cities = await response_city.json();
+            const optCities = cities.map(city => `<option value="${city}">${city}</option>`);
+
+            selCity.innerHTML = optCities.join("");
+        })()
+
+        selCity.addEventListener('change',async (e) => {
+            const response_site = await fetch(`@Url.Content("~/api/districts")?city=${e.target.value}`);
+            const sites = await response_site.json();
+            const optsites = sites.map(site => `<option value="${site}">${site.substring(3)}</option>`);
+            selsite.innerHTML = optsites.join("");
+        })
+
+        selsite.addEventListener('change', async (e) => {
+            console.log();
+            const response_road = await fetch(`@Url.Content("~/api/roads")?site=${e.target.value}`);
+            const roads = await response_road.json();
+            console.log(roads);
+            const optroads = roads.map(road => `<option value="${road}">${road}</option>`);
+            selroad.innerHTML = optroads.join("");
+        })
+    </script>
+}
