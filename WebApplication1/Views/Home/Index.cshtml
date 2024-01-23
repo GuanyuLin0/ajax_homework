@@ -1,0 +1,115 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<ul class="str">
+</ul>
+
+@section scripts {
+    <script>
+        const emps = [
+            {"name" : "Tom"  , "workYears" : 3, "salary" : 35000 },
+            {"name" : "Jack" , "workYears" : 5, "salary" : 40000 },
+            {"name" : "Mary" , "workYears" : 7, "salary" : 45000 }
+        ];
+
+        let str = document.querySelector(".str");
+        let html = "";
+
+        const htmlmaps = emps.map(e => {
+            const { name, workYears, salary } = e;
+
+            return `<li>${name} , ${workYears} , ${salary}</li>`;
+        })
+
+        str.innerHTML = htmlmaps.join("");
+
+
+        // emps.forEach((e) => {
+        //     let x = `<li>${e.name} , ${e.workYears} , ${e.salary}</li>`;
+        //     html += x;
+        // })
+        // str.innerHTML = html;
+
+
+        // //建立Promise
+        // function show(data) {
+        //     const promise = new Promise((resolve, reject) => {
+        //         setTimeout(() => { resolve(data) }, 1000)
+        //     });
+        //     return promise;
+        // };
+
+        // //async await => 用同步的程式語法結構來完成非同步
+        // //IIFE
+        // (async () => { 
+        //     let data = await show("A");
+        //     console.log(data);
+        //     data = await show("B");
+        //     console.log(data);
+        //     data = await show("C");
+        //     console.log(data);
+        // })();
+
+
+
+
+
+        // //建立Promise
+        // function show(data) {
+        //     const promise = new Promise((resolve, reject) => {
+        //         setTimeout(() => { resolve(data) }, 1000)
+        //     });
+        //     return promise;
+        // }
+
+        // //使用Promise
+        // // console.log(show("A"));
+        // show("A")
+        //     .then((data) => {
+        //         console.log(data)
+        //         return show("B")
+        //     })
+        //     .then((data) => {
+        //         console.log(data)
+        //         return show("C")
+        //     })
+        //     .then((data) => {
+        //         console.log(data)
+        //     });
+        
+
+
+
+
+
+
+        //建立一個Promise物件
+
+        // const promise = new Promise((resolve, reject) => {
+        //     const num = Math.random() > 0.5 ? true : false;
+
+        //     if (num) resolve("成功 > 0.5");
+        //     else reject("失敗 < 0.5")
+        // });
+
+        // //使用 Promise
+
+        // promise
+        //     .then((data) => {
+        //         console.log(data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
+        //     .finally(() => {
+        //         console.log("End");
+        //     })
+
+    </script>
+}
