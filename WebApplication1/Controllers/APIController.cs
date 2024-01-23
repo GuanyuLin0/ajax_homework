@@ -13,13 +13,32 @@ namespace WebApplication1.Controllers
 
         public IActionResult Index()
         {
+            //return Content("Hello Content");
+
+            return Content("Content,你好","text/plain",System.Text.Encoding.UTF8);
+        }
+
+        public IActionResult First()
+        {
             return View();
         }
+
 
         public IActionResult Cities()
         {
             var cities = _dbContext.Addresses.Select(a=> a.City).Distinct();
             return Json(cities);
+        }
+
+        public IActionResult Avatar(int id = 1)
+        {
+            Member? member = _dbContext.Members.Find(id);
+            if(member != null)
+            {
+                byte[] img = member.FileData;
+                return File(img, "image/jpeg");
+            }
+            return NotFound();
         }
     }
 }

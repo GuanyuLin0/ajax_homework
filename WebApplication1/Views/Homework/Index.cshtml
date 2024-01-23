@@ -6,20 +6,37 @@
 <h1>Homework</h1>
 <hr />
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
-        <div class="card">
-            <img src="http://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000848.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="row row-cols-1 row-cols-md-3 g-4"></div>
 
 @section scripts {
     <script src="~/js/travel.js"></script>
     <script>
+        let _div = document.querySelector(".g-4");
+        const arr = spots.CommonFormat.Section;
+        let html = "";
+        arr.forEach(e => {
+            let arr = "";
+            
+            if (Array.isArray(e.file.img)) arr = e.file.img[0].text;
+            else arr = e.file.img.text;
+                
+            console.log(arr);
+            
+            let str = `
+            <div class="col">
+                <div class="card">
+                    <img src="${arr}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${e.stitle}</h5>
+                        <p class="card-text">${e.xbody}</p>
+                    </div>
+                </div>
+            </div>
+            `;
+         
+            html += str;
+        });
+        _div.innerHTML = html;
+        
     </script>
 }

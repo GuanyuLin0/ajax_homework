@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "First";
+}
+
+<h1>First</h1>
+
+<button id="button1" class="btn btn-primary">Ajax</button>
+<div id="div1" class="alert "></div>
+
+
+@section Scripts {
+    <script>
+        const btn = document.querySelector('#button1');
+        const theDiv = document.querySelector('#div1');
+        btn.addEventListener('click',() => {
+            //Ajax
+            // fetch('/api/index');
+            //console.log(fetch('/api/index'));
+
+            // fetch('/api/index')
+            //     .then(response => {
+            //         return response.text();
+            //         // console.log(response);
+            //         // console.log(response.text());
+            //     })
+            //     .then(data => {
+            //         // console.log(data);
+            //         theDiv.innerHTML = `<h2>${data}</h2>`;
+            //     })
+            fetch('@Url.Content("~/api/index")')
+                .then(Response => Response.text())
+                .then(data => {
+                    theDiv.innerHTML = `<h2>${data}</h2>`;
+                })
+
+        })
+    </script>
+}
